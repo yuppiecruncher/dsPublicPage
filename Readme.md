@@ -1,4 +1,5 @@
 Digital Smith Public Landing Page
+www.digitalsmith.work is registered and CNAME configured
 
 I probably won't revisit this code frequently so here's what I did: 
 
