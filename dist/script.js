@@ -34,7 +34,7 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = '#8C5523';
+        ctx.fillStyle = '#5e5e5e';
         ctx.fill();
     }
     // check particle position, 
@@ -54,7 +54,7 @@ class Particle {
         // mouse position / particle position
         let dx = mouse.x - this.x; // x distance between mouse and particle
         let dy = mouse.y - this.y; // y distance between mouse and particle
-        let distance = Math.sqrt(dx * dx + dy * dy); // pythagorean equivalent for hypoteneuse
+        let distance = (Math.sqrt(dx * dx + dy * dy)) * 3; // pythagorean equivalent for hypoteneuse
         if (distance < mouse.radius + this.size) { // only do these expensive calcs if hypoteneuse is smaller than the radii
             if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
                 this.x += 10;
@@ -87,7 +87,7 @@ class Particle {
 function init() {
     particlesArray = [];
     let numberOfParticles = (canvas.height * canvas.width) / 9000;
-    for (let i = 0; i < numberOfParticles ; i++) {
+    for (let i = 0; i < numberOfParticles; i++) {
         // size: random number between 1 and 5
         let size = (Math.random() * 5) + 1;
         // x and y: random number between 0 and canvas width and height. 
@@ -124,7 +124,7 @@ function connect() {
                 );
             if (distance < (canvas.width / 7) * (canvas.height / 7)) {
                 opacityValue = 1 - (distance / 20000);
-                ctx.strokeStyle = 'rgba(140,85,31,' + opacityValue + ')';
+                ctx.strokeStyle = 'rgba(68, 91, 128,' + opacityValue + ')';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
