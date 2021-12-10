@@ -87,7 +87,7 @@ class Particle {
 function init() {
     particlesArray = [];
     let numberOfParticles = (canvas.height * canvas.width) / 9000;
-    for (let i = 0; i < numberOfParticles; i++) {
+    for (let i = 0; i < numberOfParticles ; i++) {
         // size: random number between 1 and 5
         let size = (Math.random() * 5) + 1;
         // x and y: random number between 0 and canvas width and height. 
@@ -108,6 +108,7 @@ function init() {
 
 //  check if particles are close enough to draw lines
 function connect() {
+    let opacityValue = 1;
     // use nested loop to cycle comparisons between 
     // variable 'a' then variable 'b'
     for (let a = 0; a < particlesArray.length; a++) {
@@ -122,7 +123,8 @@ function connect() {
                     (particlesArray[a].y - particlesArray[b].y)
                 );
             if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                ctx.strokeStyle = 'rgba(140,85,31,1)';
+                opacityValue = 1 - (distance / 20000);
+                ctx.strokeStyle = 'rgba(140,85,31,' + opacityValue + ')';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -143,6 +145,23 @@ function animate() {
     }
     connect();
 }
+
+// resize event
+window.addEventListener('resize',
+    function () {
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+        mouse.radius = ((canvas.height / 80) * (canvas.height / 80))
+    }
+);
+
+// mouse out event
+window.addEventListener('mouseout',
+    function () {
+        mouse.x = undefined;
+        mouse.y = undefined;
+    }
+)
 
 init();
 animate();
