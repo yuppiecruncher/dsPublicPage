@@ -106,6 +106,33 @@ function init() {
     }
 }
 
+//  check if particles are close enough to draw lines
+function connect() {
+    // use nested loop to cycle comparisons between 
+    // variable 'a' then variable 'b'
+    for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+            // this is just the pythagorean hypoteneuse again for distance
+            let distance = (
+                (particlesArray[a].x - particlesArray[b].x) *
+                (particlesArray[a].x - particlesArray[b].x)
+            ) +
+                (
+                    (particlesArray[a].y - particlesArray[b].y) *
+                    (particlesArray[a].y - particlesArray[b].y)
+                );
+            if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                ctx.strokeStyle = 'rgba(140,85,31,1)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                ctx.stroke();
+            }
+        }
+    }
+}
+
 // animation loop
 function animate() {
     requestAnimationFrame(animate);
@@ -114,6 +141,8 @@ function animate() {
     for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
     }
+    connect();
 }
+
 init();
 animate();
