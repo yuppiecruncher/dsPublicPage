@@ -1,5 +1,7 @@
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext('2d');
+const particleColor = '#7286A7';
+const lineColor = 'rgba(240, 240, 240,' // Must be rgba because it is used in template string and concatenated with opacity value
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -34,7 +36,7 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = '#5e5e5e';
+        ctx.fillStyle = particleColor;
         ctx.fill();
     }
     // check particle position, 
@@ -124,7 +126,7 @@ function connect() {
                 );
             if (distance < (canvas.width / 7) * (canvas.height / 7)) {
                 opacityValue = 1 - (distance / 20000);
-                ctx.strokeStyle = 'rgba(68, 91, 128,' + opacityValue + ')';
+                ctx.strokeStyle = lineColor + opacityValue + ')';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
