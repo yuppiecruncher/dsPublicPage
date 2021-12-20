@@ -1,9 +1,16 @@
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext('2d');
-const particleColor = '#7286A7';
-const lineColor = 'rgba(240, 240, 240,' // Must be rgba because it is used in template string and concatenated with opacity value
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
+// appearance variables
+const particleColor = '#7286A7';
+const particleSpeedFactor = 13; // higher numbers are slower
+const lineColor = 'rgba(240, 240, 240,'; // Must be rgba string because it is used in template string and concatenated with opacity value
+const opacityDenominator = 10000; // controls opacity transition smoothness
+const connectionDistance = 8; // controls length of lines (Smaller is longer)
+const mouseNudge = 5; // steps to move the particle with the mouse (smaller is finer nudging)
+
 
 let particlesArray;
 
@@ -59,21 +66,21 @@ class Particle {
         let distance = (Math.sqrt(dx * dx + dy * dy)) * 3; // pythagorean equivalent for hypoteneuse
         if (distance < mouse.radius + this.size) { // only do these expensive calcs if hypoteneuse is smaller than the radii
             if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
-                this.x += 10;
+                this.x += mouseNudge;
                 // if mouse is on left and particle is inside canvas by a margin (this.size * 10)
                 // bounce the particle to the right by 10 
             }
             if (mouse.x > this.x && this.x > this.size * 10) {
-                this.x -= 10;
+                this.x -= mouseNudge;
                 // inverse of above
             }
             if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
-                this.y += 10;
+                this.y += mouseNudge;
                 // if mouse is below particle and particle is within the canvas by the margin
                 // bounce the particle up by 10
             }
             if (mouse.y > this.y && this.y > this.size * 10) {
-                this.y -= 10;
+                this.y -= mouseNudge;
                 // inverse of above
             }
         }
@@ -98,8 +105,9 @@ function init() {
         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2)
         // determine how many pixels the particles animate in each direction 
         // for each step of the update() function
-        let directionX = (Math.random() * 5) - 2.5;
-        let directionY = (Math.random() * 5) - 2.5;
+        let speed = (Math.random() * 5) -2.8;
+        let directionX = speed / particleSpeedFactor;
+        let directionY = speed / particleSpeedFactor;
         let color = '#8C5523';
 
         // call particlesArray class as many times as calculated by numberOfParticles, 
@@ -124,8 +132,8 @@ function connect() {
                     (particlesArray[a].y - particlesArray[b].y) *
                     (particlesArray[a].y - particlesArray[b].y)
                 );
-            if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                opacityValue = 1 - (distance / 20000);
+            if (distance < (canvas.width / connectionDistance) * (canvas.height / connectionDistance)) {
+                opacityValue = 1 - (distance / opacityDenominator);
                 ctx.strokeStyle = lineColor + opacityValue + ')';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
