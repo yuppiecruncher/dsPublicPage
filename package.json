@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deploy": "gh-pages -d dist" 
+    "deploy": "gh-pages -d dist",
+    "start": "http-server ./dist"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +13,8 @@
   "homepage": "https://yuppiecruncher.github.io/dsPublicPage",
   "dependencies": {
     "gh-pages": "^6.3.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }
