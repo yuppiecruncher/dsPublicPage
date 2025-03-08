@@ -34,4 +34,5 @@ Note: this is the branch that GitHub Pages will pull from
 
 In order to publish changes and automatically deploy: 
 1. Commit changes and push to master
+2. Update "Version" in package.json (optional)
 2. Run: `npm run deploy` in project directory
