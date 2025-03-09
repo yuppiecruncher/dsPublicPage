@@ -1,3 +1,7 @@
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
 <svg id="logo" xmlns="http://www.w3.org/2000/svg" width="6.4in" height="3.6in" viewBox="0 0 1920 1080">
   <path id="anvil" stroke-linecap="round" stroke="white" stroke-width="5" d="M 981.81,574.53
    C 981.81,574.53 356.46,574.53 356.46,574.53
@@ -259,3 +263,32 @@
      814.22,541.73 738.39,541.73 738.39,541.73
      738.39,541.73 738.39,355.42 738.39,355.42 Z" />
 </svg>
+
+<div id="contactFormContainer" style="display: none;">
+  <div id="contactForm">
+    <form action="https://formsubmit.co/contact.ian.d.smith+formsubmit@email.com" method="POST">
+      <h2 id="contactheader">Contact Me</h2>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name"><br><br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email"><br><br>
+      <label for="message">Message:</label><br>
+      <textarea id="message" name="message" rows="4" cols="50"></textarea><br><br>
+      <input type="submit" value="Submit">
+      <button type="button" id="cancelButton">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#logo').click(function() {
+      $('#contactFormContainer').toggle();
+    });
+
+    $('#cancelButton').click(function() {
+      $('#contactFormContainer').hide();
+    });
+  });
+</script>
